@@ -226,6 +226,10 @@ vim.o.updatetime = 250
 vim.o.timeout = true
 vim.o.timeoutlen = 300
 
+-- Folding options
+vim.o.foldmethod = 'indent'
+vim.o.foldlevelstart = 99
+
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
@@ -290,11 +294,12 @@ vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { de
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
+
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'help', 'vim', 'terraform' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'javascript', 'rust', 'tsx', 'typescript', 'help', 'vim', 'terraform' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
@@ -356,6 +361,13 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
+vim.keymap.set('n', '<leader>sf', function()
+  require('telescope.builtin').treesitter({ default_text = "function"})
+end, { desc = '[S]earch [F]unctions' })
+
+vim.keymap.set('n', '<leader>st', require('telescope.builtin').treesitter, { desc = '[S]earch [T]reesitter' })
+
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
@@ -416,6 +428,7 @@ local servers = {
   -- clangd = {},
   -- gopls = {},
   pyright = {},
+  vtsls = {},
   -- rust_analyzer = {},
   -- tsserver = {},
 
