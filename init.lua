@@ -66,6 +66,10 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
 
+
+  -- Floating terminal window
+  'numToStr/FTerm.nvim',
+
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
@@ -209,7 +213,7 @@ vim.o.mouse = 'a'
 vim.o.clipboard = 'unnamedplus'
 
 -- Enable break indent
-vim.o.breakindent = true
+vim.o.breakindent = false
 
 -- Save undo history
 vim.o.undofile = true
@@ -225,10 +229,6 @@ vim.wo.signcolumn = 'yes'
 vim.o.updatetime = 250
 vim.o.timeout = true
 vim.o.timeoutlen = 300
-
--- Folding options
-vim.o.foldmethod = 'indent'
-vim.o.foldlevelstart = 99
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -269,6 +269,13 @@ require('telescope').setup {
     },
   },
 }
+
+
+--vim.keymap.set('n', '<A-i>', require('FTerm').toggle, { desc = '[i] Open terminal', bang = True })
+
+vim.keymap.set('n', '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>')
+vim.keymap.set('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
@@ -361,9 +368,9 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
-vim.keymap.set('n', '<leader>sf', function()
+vim.keymap.set('n', '<leader>f', function()
   require('telescope.builtin').treesitter({ default_text = "function"})
-end, { desc = '[S]earch [F]unctions' })
+end, { desc = 'Search [F]unctions' })
 
 vim.keymap.set('n', '<leader>st', require('telescope.builtin').treesitter, { desc = '[S]earch [T]reesitter' })
 
