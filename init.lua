@@ -74,6 +74,9 @@ require('lazy').setup({
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
 
+  -- Github copilot
+  'github/copilot.vim',
+
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
@@ -197,6 +200,9 @@ require('lazy').setup({
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
+
+-- This is needed otherwise you get a copilot error 'tab is claimed by other plugin'.
+vim.g.copilot_assume_mapped = true
 
 -- Set highlight on search
 vim.o.hlsearch = false
