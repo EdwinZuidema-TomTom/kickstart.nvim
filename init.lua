@@ -66,6 +66,8 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
 
+  -- split maximizer
+   "0x00-ketsu/maximizer.nvim",
 
   -- Floating terminal window
   'numToStr/FTerm.nvim',
@@ -255,6 +257,8 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- Remap Copilot 'tab' completion to Ctrl-J
 vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
 
+vim.api.nvim_set_keymap('n', 'mt', '<cmd>lua require("maximizer").toggle()<CR>', {silent = true, noremap = true})
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -278,7 +282,6 @@ require('telescope').setup {
     },
   },
 }
-
 
 --vim.keymap.set('n', '<A-i>', require('FTerm').toggle, { desc = '[i] Open terminal', bang = True })
 
